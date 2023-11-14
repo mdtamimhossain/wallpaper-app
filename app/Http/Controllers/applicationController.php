@@ -10,6 +10,8 @@ use App\Http\Requests\admin\searchResultRequest;
 use App\Http\Requests\admin\searchUserRequest;
 use App\Http\Requests\admin\updateUserInfoRequest;
 use App\Http\Requests\admin\uploadVideoRequest;
+use App\Http\Requests\application\AddCategoryRequest;
+use App\Http\Requests\application\updateCategoryRequest;
 use App\Http\Requests\payment\searchPaymentRequest;
 use App\Http\Requests\student\courseEnrollRequest;
 use App\Http\Requests\student\postCommentRequest;
@@ -43,10 +45,10 @@ class applicationController extends Controller
         return response()->json($this->service->getCategory($id));
 
     }
-    public function updateCategory (editCategoryRequest $request): JsonResponse
+    public function updateCategoryImage (updateCategoryRequest $request): JsonResponse
     {
 
-        return response()->json($this->service->updateCategory($request->all()));
+        return response()->json($this->service->updateCategoryImage($request->all()));
 
     }
     public function deleteCategory ($id): JsonResponse

@@ -9,13 +9,12 @@ class ApplicationService extends Service
     public function addCategory (array $data): array
     {
         try {
+            $imagePath = $data['image']->store('public/category/image');
             Category::create([
                 'name'=>$data['name'],
-                'description'=>$data['description'],
-                'slug'=>strtolower(str_replace(' ','-',$data['name'])),
+                'image'=>$imagePath
             ]);
-
-            return $this->responseSuccess("Category added successfully",['name'=>$data['name']]);
+            return $this->responseSuccess("Category added successfully");
         }
         catch (\Exception $exception) {
             return $this->responseError($exception->getMessage());
@@ -50,11 +49,16 @@ class ApplicationService extends Service
      * @param array $data
      * @return array
      */
-    public function updateCategory(array $data): array
+    public function updateCategoryImage(array $data): array
     {
         try{
-            Category::where('id',$data['id'])->update(['name'=>$data['name'],'description'=>$data['description']]);
-            return $this->responseSuccess('Category updated successfully');
+            $imagePath = $data['image']->store('public/category/image');
+            Category::where('id',$data['id'])->update(
+                [
+                    'image'=>$imagePath
+                ]
+            );
+            return $this->responseSuccess('Category Image updated successfully');
         }catch (\Exception $exception)
         {
             return $this->responseError($exception->getMessage());
