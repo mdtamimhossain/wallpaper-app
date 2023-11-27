@@ -1,25 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\admin\addUserInfoRequest;
-use App\Http\Requests\admin\courseUploadRequest;
-use App\Http\Requests\admin\getwayInformationRequest;
-use App\Http\Requests\admin\resultUploadRequest;
-use App\Http\Requests\admin\searchResultRequest;
-use App\Http\Requests\admin\searchUserRequest;
-use App\Http\Requests\admin\updateUserInfoRequest;
-use App\Http\Requests\admin\uploadVideoRequest;
 use App\Http\Requests\application\AddCategoryRequest;
+use App\Http\Requests\application\searchWallpaperRequest;
 use App\Http\Requests\application\updateCategoryRequest;
-use App\Http\Requests\payment\searchPaymentRequest;
-use App\Http\Requests\student\courseEnrollRequest;
-use App\Http\Requests\student\postCommentRequest;
-use App\Http\Requests\teacher\courseRequest;
-use App\Http\Services\admin\adminService;
+use App\Http\Requests\application\uploadWallpaperRequest;
 use App\Http\Services\ApplicationService;
-use App\Http\Services\student\studentService;
 use Illuminate\Http\JsonResponse;
+
 class applicationController extends Controller
 {
     private ApplicationService $service;
@@ -55,6 +43,36 @@ class applicationController extends Controller
     {
 
         return response()->json($this->service->deleteCategory($id));
+
+    }
+    public function uploadWallpaper (uploadWallpaperRequest $request): JsonResponse
+    {
+
+        return response()->json($this->service->uploadWallpaper($request->all()));
+
+    }
+    public function wallpaperByCategory ($id): JsonResponse
+    {
+
+        return response()->json($this->service->wallpaperByCategory($id));
+
+    }
+    public function searchWallpaper (searchWallpaperRequest $request): JsonResponse
+    {
+
+        return response()->json($this->service->searchWallpaper($request->all()));
+
+    }
+    public function deleteWallpaper ($id): JsonResponse
+    {
+
+        return response()->json($this->service->deleteWallpaper($id));
+
+    }
+    public function likeWallpaper ($id): JsonResponse
+    {
+
+        return response()->json($this->service->likeWallpaper($id));
 
     }
 

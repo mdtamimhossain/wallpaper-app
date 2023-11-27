@@ -20,6 +20,13 @@ Route::get('/get-category/{id}', [applicationController::class, 'getCategory']);
 Route::get('/all-category/', [applicationController::class, 'allCategory']);
 Route::post('/delete-category/{id}', [applicationController::class, 'deleteCategory']);
 
+Route::post('/upload-wallpaper', [applicationController::class, 'uploadWallpaper']);
+Route::get('/wallpaper-by-category/{id}', [applicationController::class, 'wallpaperByCategory']);
+Route::post('/search-wallpaper', [applicationController::class, 'searchWallpaper']);
+Route::post('/delete-wallpaper/{id}', [applicationController::class, 'deleteWallpaper']);
+Route::post('/like-wallpaper/{id}', [applicationController::class, 'likeWallpaper']);
+
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
