@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Http\Requests\application\AddCategoryRequest;
+use App\Http\Requests\application\LoginRequest;
 use App\Http\Requests\application\searchWallpaperRequest;
 use App\Http\Requests\application\updateCategoryRequest;
 use App\Http\Requests\application\uploadWallpaperRequest;
@@ -75,6 +76,11 @@ class applicationController extends Controller
         return response()->json($this->service->likeWallpaper($id));
 
     }
+    public function login (LoginRequest $request): JsonResponse
+    {
 
+        return response()->json($this->service->processLogin($request->all()));
+
+    }
 
 }

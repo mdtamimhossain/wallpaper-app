@@ -5,6 +5,7 @@ use App\Http\Services\Service;
 use App\Models\Category;
 use App\Models\User;
 use App\Models\Wallpaper;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
 class ApplicationService extends Service
@@ -160,6 +161,28 @@ class ApplicationService extends Service
             return $this->responseSuccess('Search wallpapers',['data'=>$wallpapers]);
         }catch (\Exception $exception)
         {
+            return $this->responseError($exception->getMessage());
+        }
+    }
+    public function processLogin (array $data): array
+    {
+        try {
+
+            $user = User::where('email', $data['email'])->first();
+            if (!$user) {
+
+                return $this->responseError('User Not Found');
+            }
+            if (!Hash::check($data['password'], $user->password)) {
+                return $this->responseError("Wrong Username Or Password");
+            }
+            $authorization=[
+                'token' =>  $user->createToken($user->username)->accessToken,
+                'token_type' =>  'Bearer'
+            ];
+            return $this->responseSuccess("Login Successful!",['authorization'=>$authorization]);
+        }
+        catch (\Exception $exception) {
             return $this->responseError($exception->getMessage());
         }
     }
